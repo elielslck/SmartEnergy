@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SmartEnergy.Models;
 
 namespace SmartEnergy.Controllers
 {
@@ -6,10 +7,33 @@ namespace SmartEnergy.Controllers
     [Route("api/carga")]
     public class CargaController : ControllerBase
     {
+        #region Variables
 
-        [HttpGet]
-        public string Get(){
-            return "ok";
+        private readonly Carga _carga;
+
+        #endregion
+
+        #region Constructor
+
+        public CargaController()
+        {
+            _carga = new Carga();
+        }
+
+        #endregion
+
+        [HttpGet("listData")]
+        [ProducesResponseType(typeof(Carga), StatusCodes.Status200OK)]
+        public ActionResult ListData()
+        {
+            try
+            {
+                return Ok(_carga.GetAllCarga());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao consultar aplicacao!!" + ex.Message.ToString());
+            }
         }
     }
 }

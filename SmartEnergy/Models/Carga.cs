@@ -1,79 +1,53 @@
+using Newtonsoft.Json;
+using RestSharp;
+using System.Text;
+
 namespace SmartEnergy.Models
 {
     public class Carga
     {
-           public class Geracao
-    {
-        public double total { get; set; }
-        public double hidraulica { get; set; }
-        public double termica { get; set; }
-        public double eolica { get; set; }
-        public double nuclear { get; set; }
-        public double solar { get; set; }
-        public double itaipu50HzBrasil { get; set; }
-        public double itaipu60Hz { get; set; }
-    }
+        #region Constructor
 
-    public class Intercambio
-    {
-        public double internacional_sul { get; set; }
-        public double sul_sudeste { get; set; }
-        public double sudeste_nordeste { get; set; }
-        public double sudeste_norteFic { get; set; }
-        public double norte_norteFic { get; set; }
-        public double norteFic_nordeste { get; set; }
-    }
+        public Carga()
+        {
+            this.Data = DateTime.Now;
+            this.SudesteECentroOeste = new Region();
+            this.Sul = new Region();
+            this.Nordeste = new Region();
+            this.Norte = new Region();
+            this.Internacional = new Internacional();
+            this.Intercambio = new Intercambio();
+        }
 
-    public class Internacional
-    {
-        public double argentina { get; set; }
-        public double paraguai { get; set; }
-        public double uruguai { get; set; }
-    }
+        #endregion
 
-    public class Nordeste
-    {
-        public Geracao geracao { get; set; }
-        public double cargaVerificada { get; set; }
-        public double importacao { get; set; }
-        public double exportacao { get; set; }
-    }
+        #region Properties
 
-    public class Norte
-    {
-        public Geracao geracao { get; set; }
-        public double cargaVerificada { get; set; }
-        public double importacao { get; set; }
-        public double exportacao { get; set; }
-    }
-
-    public class CargaTotal
-    {
         public DateTime Data { get; set; }
-        public SudesteECentroOeste sudesteECentroOeste { get; set; }
-        public Sul sul { get; set; }
-        public Nordeste nordeste { get; set; }
-        public Norte norte { get; set; }
-        public Internacional internacional { get; set; }
-        public Intercambio intercambio { get; set; }
-    }
+        public Region SudesteECentroOeste { get; set; }
+        public Region Sul { get; set; }
+        public Region Nordeste { get; set; }
+        public Region Norte { get; set; }
+        public Internacional Internacional { get; set; }
+        public Intercambio Intercambio { get; set; }
 
-    public class SudesteECentroOeste
-    {
-        public Geracao geracao { get; set; }
-        public double cargaVerificada { get; set; }
-        public double importacao { get; set; }
-        public double exportacao { get; set; }
-    }
+        #endregion
 
-    public class Sul
-    {
-        public Geracao geracao { get; set; }
-        public double cargaVerificada { get; set; }
-        public double importacao { get; set; }
-        public double exportacao { get; set; }
-    }
+        #region Methods
 
+        public Carga GetAllCarga()
+        {
+            return GetData();
+        }
 
+        private Carga GetData()
+        {
+            var client = new RestClient("https://integra.ons.org.br/api/energiaagora/GetBalancoEnergetico/null");
+            var request = new RestRequest();
+            return client.GetAsync<Carga>(request).Result;
+            //return JsonConvert.DeserializeObject<Carga>(response);
+        }
+
+        #endregion
     }
 }
