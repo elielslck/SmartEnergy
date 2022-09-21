@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace SmartEnergy.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class ReservatoriosController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("reservatorios")]
         public string Get(){
             return "ok";
         }

@@ -4,7 +4,7 @@ using SmartEnergy.Models;
 namespace SmartEnergy.Controllers
 {
     [ApiController]
-    [Route("api/carga")]
+    [Route("api/")]
     public class CargaController : ControllerBase
     {
         #region Variables
@@ -22,7 +22,7 @@ namespace SmartEnergy.Controllers
 
         #endregion
 
-        [HttpGet("listData")]
+        [HttpGet("carga")]
         [ProducesResponseType(typeof(Carga), StatusCodes.Status200OK)]
         public ActionResult ListData()
         {
