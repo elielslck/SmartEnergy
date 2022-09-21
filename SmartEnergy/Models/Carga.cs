@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
 using RestSharp;
+using RestSharp.Serializers;
+using System.Net.Security;
 using System.Text;
 
 namespace SmartEnergy.Models
@@ -46,6 +48,10 @@ namespace SmartEnergy.Models
             var request = new RestRequest();
             return client.GetAsync<Carga>(request).Result;
             //return JsonConvert.DeserializeObject<Carga>(response);
+            request.AddHeader("Content-Type". "application/json");
+            client.RemoteCertificateValidatinCallback = (sender, certificate, chain, SslPolicyErrors) => true;
+
+            
         }
 
         #endregion
