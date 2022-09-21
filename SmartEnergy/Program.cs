@@ -28,7 +28,7 @@ app.UseSwaggerUI(options =>
 });
 
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

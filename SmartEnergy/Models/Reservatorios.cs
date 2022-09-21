@@ -1,5 +1,9 @@
 namespace SmartEnergy.Models
 {
+    #region Constructor
+    #endregion
+
+    #region Parameters
     public class Reservatorios
     {
         public DateTime Data { get; set; }
@@ -22,4 +26,5 @@ namespace SmartEnergy.Models
         public double SINEARVerificadaMWMes { get; set; }
         public double SINEARPorcentagem { get; set; }
     }
+    #endregion
 }
