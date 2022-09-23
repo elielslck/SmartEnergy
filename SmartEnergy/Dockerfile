@@ -11,6 +11,8 @@ COPY ["SmartEnergy/SmartEnergy.csproj", "SmartEnergy/"]
 RUN dotnet restore "SmartEnergy/SmartEnergy.csproj"
 COPY . .
 WORKDIR "/src/SmartEnergy"
+ADD integra.crt /usr/local/share/ca-certificates/integra.crt
+RUN update-ca-certificates
 RUN dotnet build "SmartEnergy.csproj" -c Release -o /app/build
 
 FROM build AS publish
