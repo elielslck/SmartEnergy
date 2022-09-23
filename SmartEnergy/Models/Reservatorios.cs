@@ -66,7 +66,7 @@ namespace SmartEnergy.Models
       //ThrowOnAnyError = true,
       //Timeout = 1000,
       //ClientCertificates = certificates,
-      RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => false
+      RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
     };
     var client = new RestClient(options);
     var request = new RestRequest();
