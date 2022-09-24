@@ -7,18 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["SmartEnergy/SmartEnergy.csproj", "SmartEnergy/"]
+COPY ["SmartEnergy.csproj", "SmartEnergy/"]
 RUN dotnet restore "SmartEnergy/SmartEnergy.csproj"
 COPY . .
 WORKDIR "/src/SmartEnergy"
-ADD integra.crt /usr/local/share/ca-certificates/integra.crt
-RUN update-ca-certificates
-RUN dotnet build "SmartEnergy.csproj" -c Release -o /app/build
+
+RUN dotnet build "SmartEnergy.csproj" -c Release -o out
 
 FROM build AS publish
-RUN dotnet publish "SmartEnergy.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "SmartEnergy.csproj" -c Release -o /app/publish /p:UseAppHost=true
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "SmartEnergy.dll"]
