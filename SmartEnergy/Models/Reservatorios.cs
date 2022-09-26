@@ -10,9 +10,9 @@ namespace SmartEnergy.Models
         public Reservatorios()
         {
             this.Data = DateTime.Now;
-            this.Subsistema = Subsistema;
-            this.Bacia = Bacia;
-            this.Reservatorio = Reservatorio;
+            //this.Subsistema = Subsistema;
+            //this.Bacia = Bacia;
+            //this.Reservatorio = Reservatorio;
 
         }
 

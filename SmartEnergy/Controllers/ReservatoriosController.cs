@@ -22,22 +22,38 @@ namespace SmartEnergy.Controllers
 
         #endregion
 
-        #region
+        #region Methods
 
         [HttpGet("reservatorios")]
         [ProducesResponseType(typeof(Reservatorios), StatusCodes.Status200OK)]
-        public ActionResult ListReserv()
+
+        public ActionResult ListReserv(string? reservParam = "")
         {
             try
             {
-                return Ok(_reservatorios.GetAllReserv());
+                var reservList = new List<Reservatorios>();
+                if (!string.IsNullOrEmpty(reservParam))
+                {
+                    reservList = (from Reservatorios item in _reservatorios.GetAllReserv()
+                                  where item.Subsistema.ToUpper() == reservParam.ToUpper()
+                                  select item).ToList();
+                }
+                else
+                {
+                    reservList = _reservatorios.GetAllReserv().ToList();
+                }
+
+
+                return Ok(reservList);
+
+
+
             }
             catch (Exception ex)
             {
-                 throw new Exception("Erro ao consultar aplicacao!!" + ex.Message);
+                throw new Exception("Erro ao consultar aplicacao!!" + ex.Message);
             }
         }
-        
         #endregion
     }
 }
