@@ -1,10 +1,4 @@
-using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Serializers;
-using System.Net;
-using System.Net.Security;
-using System.Text;
-using System.Security.Cryptography.X509Certificates;
 
 
 namespace SmartEnergy.Models
@@ -19,7 +13,6 @@ namespace SmartEnergy.Models
             this.Subsistema = Subsistema;
             this.Bacia = Bacia;
             this.Reservatorio = Reservatorio;
-
 
         }
 
@@ -50,16 +43,18 @@ namespace SmartEnergy.Models
 
 
         #region Methods
-        public Reservatorios GetAllReserv()
+        public List<Reservatorios> GetAllReserv()
         {
             return GetReserv();
         }
 
-        private Reservatorios GetReserv()
+        private List<Reservatorios> GetReserv()
         {
-            var client = new RestClient("https://integra.ons.org.br/api/energiaagora/GetBalancoEnergetico/null");
-            var request = new RestRequest();
-            return client.GetAsync<Reservatorios>(request).Result;
+            RestClient restClient = new RestClient("https://integra.ons.org.br/api/energiaagora/Get/SituacaoDosReservatorios");
+            RestRequest restRequest = new RestRequest("", Method.Get);
+            restRequest.AddHeader("Accept", "application/json");
+            RestResponse restResponse = restClient.Execute(restRequest);
+            return restClient.GetAsync<List<Reservatorios>>(restRequest).GetAwaiter().GetResult();
 
         }
 

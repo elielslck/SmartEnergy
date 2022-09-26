@@ -1,14 +1,8 @@
-using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Serializers;
-using System.Net;
-using System.Net.Security;
-using System.Text;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SmartEnergy.Models
 {
-  public class Carga
+    public class Carga
   {
     #region Constructor
 
@@ -46,22 +40,11 @@ namespace SmartEnergy.Models
 
     private Carga GetData()
     {
-      //var certificates = new X509CertificateCollection();
-      //string certificated = "integra.crt";
-      //certificates.Add(integra.crt);
-      //var client = new RestClient("https://integra.ons.org.br/api/energiaagora/GetBalancoEnergetico/null");
-      var options = new RestClientOptions("https://integra.ons.org.br/api/energiaagora/GetBalancoEnergetico/null")
-      {
-        //ThrowOnAnyError = true,
-        //Timeout = 1000,
-        //ClientCertificates = certificates,
-        RemoteCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
-      };
-      var client = new RestClient(options);
+     
+      var client = new RestClient("https://integra.ons.org.br/api/energiaagora/GetBalancoEnergetico/null");
       var request = new RestRequest();
       return client.GetAsync<Carga>(request).Result;
-      //return JsonConvert.DeserializeObject<Carga>(response);
-
+      
     }
 
     #endregion

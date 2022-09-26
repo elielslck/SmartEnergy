@@ -34,7 +34,7 @@ namespace SmartEnergy.Controllers
             }
             catch (Exception ex)
             {
-                 throw new Exception("Erro ao consultar aplicacao!!" + ex.Message.ToString());
+                 throw new Exception("Erro ao consultar aplicacao!!" + ex.Message);
             }
         }
         
