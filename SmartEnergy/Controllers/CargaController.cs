@@ -22,6 +22,8 @@ namespace SmartEnergy.Controllers
 
         #endregion
 
+        #region
+
         [HttpGet("carga")]
         [ProducesResponseType(typeof(Carga), StatusCodes.Status200OK)]
         public ActionResult ListData()
@@ -35,5 +37,6 @@ namespace SmartEnergy.Controllers
                 throw new Exception("Erro ao consultar aplicacao!!" + ex.Message.ToString());
             }
         }
+        #endregion
     }
 }

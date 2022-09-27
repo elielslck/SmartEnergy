@@ -4,12 +4,14 @@ namespace SmartEnergy.Models
 {
     public class Uf
     {
+        #region Properties
         public int id { get; set; }
         public string sigla { get; set; }
         public string nome { get; set; }
         public ufRegion regiao { get; set; }
+        #endregion
 
-
+        #region Methods
         public List<Uf> GetAllUf()
         {
             return GetUf();
@@ -24,6 +26,7 @@ namespace SmartEnergy.Models
             return restClient.GetAsync<List<Uf>>(restRequest).GetAwaiter().GetResult();
 
         }
+        #endregion
     }
 
 
